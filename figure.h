@@ -2,14 +2,12 @@
 #define FIGURE_H
 
 #include <list>
+#include <iostream>
+#include "enums.h"
 using namespace std;
 
 class Field;
-
-enum Team{
-    T_BLACK,
-    T_WHITE
-};
+class Board;
 
 class Figure
 {
@@ -19,11 +17,14 @@ private:
 public:
     Figure();
     Figure(Team t);
-    ~Figure();
+    virtual ~Figure();
 
-    virtual list<Field*> getPossibleMovements();
-    Team* getTeam() const;
+    virtual list<Field*> getPossibleMovements(Coords myPos, Board* board);
+    virtual void onMoveEvent();
+    Team getTeam() const;
     char getSymbol() const;
+
+    friend ostream& operator<<(ostream& out, const Figure f);
 };
 
 #endif // FIGURE_H

@@ -3,12 +3,8 @@
 
 class Field;
 
+#include "enums.h"
 #include "figure.h"
-
-enum Color{
-    C_BLACK,
-    C_WHITE
-};
 
 class Field
 {

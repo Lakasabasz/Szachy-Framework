@@ -48,11 +48,31 @@ Board::Board(bool defaultPositions){
     }
 }
 
+Board::~Board()
+{
+    for(int i = 0; i<8; i++){
+        for(int x = 0; x<8; x++){
+            delete fields[i][x];
+        }
+    }
+}
+
+void Board::setFigureAt(FieldsCoordinates fc, int fc2, Figure *fig)
+{
+    fields[fc][fc2]->setFigure(fig);
+}
+
 void Board::display()
 {
-    vector<string> toDisplay;
-    // Górna ramka
-    for(int i = 0; i < 20; i++){
-        string t = "╔═╗\n║ ║\n╚═╝";
+    //vector<string> toDisplay;
+    for(int x = 0; x < 8; x++){
+        for(int y = 0; y < 8; y++){
+            cout << fields[x][y]->getFigure();
+        }
+        cout << endl;
     }
+    // Górna ramka
+    //for(int i = 0; i < 20; i++){
+        //string t = "╔═╗\n║ ║\n╚═╝";
+    //}
 }

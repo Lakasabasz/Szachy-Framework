@@ -15,4 +15,5 @@ add_executable(Framework main.cpp
     bishop.cpp bishop.h
     queen.cpp queen.h
     king.cpp king.h
+    enums.h
 )

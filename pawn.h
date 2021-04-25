@@ -7,6 +7,7 @@ class Pawn : public Figure
 {
 public:
     Pawn(Team t);
+    virtual list<Field*> getPossibleMovements(Coords myPos, Board* board);
 };
 
 #endif // PAWN_H
