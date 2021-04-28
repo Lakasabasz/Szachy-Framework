@@ -21,8 +21,9 @@ public:
 
     virtual list<Field*> getPossibleMovements(Coords myPos, Board* board);
     virtual void onMoveEvent();
-    Team getTeam() const;
-    char getSymbol() const;
+
+    virtual Team getTeam() const;
+    virtual char getSymbol() const;
 
     friend ostream& operator<<(ostream& out, const Figure f);
 };

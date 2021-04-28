@@ -57,6 +57,21 @@ Board::~Board()
     }
 }
 
+Field *Board::getField(Coords pos)
+{
+    return this->fields[pos.first][pos.second];
+}
+
+Figure* Board::getFigureAt(Coords pos)
+{
+    return this->fields[pos.first][pos.second]->getFigure();
+}
+
+Movement Board::getLastMovement() const
+{
+    return this->history.back();
+}
+
 void Board::setFigureAt(FieldsCoordinates fc, int fc2, Figure *fig)
 {
     fields[fc][fc2]->setFigure(fig);
