@@ -7,6 +7,7 @@ class Bishop : public Figure
 {
 public:
     Bishop(Team t);
+    std::string getSymbol() const;
 };
 
 #endif // BISHOP_H

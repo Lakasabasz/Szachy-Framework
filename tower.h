@@ -7,6 +7,7 @@ class Tower : public Figure
 {
 public:
     Tower(Team t);
+    std::string getSymbol() const;
 };
 
 #endif // TOWER_H

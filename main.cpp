@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "board.h"
+#include "bishop.h"
 
 using namespace std;
 

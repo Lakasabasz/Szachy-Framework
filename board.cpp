@@ -34,17 +34,17 @@ Board::Board(bool defaultPositions){
 
         // Czarne
         for(FieldsCoordinates fc : allFC){
-            setFigureAt(fc, 6, new Pawn(Team::T_WHITE));
+            setFigureAt(fc, 6, new Pawn(Team::T_BLACK));
         }
 
-        setFigureAt(FieldsCoordinates::A, 7, new Tower(Team::T_WHITE));
-        setFigureAt(FieldsCoordinates::H, 7, new Tower(Team::T_WHITE));
-        setFigureAt(FieldsCoordinates::B, 7, new Horse(Team::T_WHITE));
-        setFigureAt(FieldsCoordinates::G, 7, new Horse(Team::T_WHITE));
-        setFigureAt(FieldsCoordinates::C, 7, new Bishop(Team::T_WHITE));
-        setFigureAt(FieldsCoordinates::F, 7, new Bishop(Team::T_WHITE));
-        setFigureAt(FieldsCoordinates::D, 7, new Queen(Team::T_WHITE));
-        setFigureAt(FieldsCoordinates::E, 7, new King(Team::T_WHITE));
+        setFigureAt(FieldsCoordinates::A, 7, new Tower(Team::T_BLACK));
+        setFigureAt(FieldsCoordinates::H, 7, new Tower(Team::T_BLACK));
+        setFigureAt(FieldsCoordinates::B, 7, new Horse(Team::T_BLACK));
+        setFigureAt(FieldsCoordinates::G, 7, new Horse(Team::T_BLACK));
+        setFigureAt(FieldsCoordinates::C, 7, new Bishop(Team::T_BLACK));
+        setFigureAt(FieldsCoordinates::F, 7, new Bishop(Team::T_BLACK));
+        setFigureAt(FieldsCoordinates::D, 7, new Queen(Team::T_BLACK));
+        setFigureAt(FieldsCoordinates::E, 7, new King(Team::T_BLACK));
     }
 }
 
@@ -80,9 +80,11 @@ void Board::setFigureAt(FieldsCoordinates fc, int fc2, Figure *fig)
 void Board::display()
 {
     //vector<string> toDisplay;
-    for(int x = 0; x < 8; x++){
+    for(int x = 7; x > -1; x--){
         for(int y = 0; y < 8; y++){
-            cout << fields[x][y]->getFigure();
+            if(fields[y][x]->getFigure() == nullptr){
+                cout << "__";
+            } else cout << fields[y][x]->getFigure()->show();
         }
         cout << endl;
     }

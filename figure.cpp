@@ -20,14 +20,12 @@ Team Figure::getTeam() const{
     return this->t;
 }
 
-char Figure::getSymbol() const{
-    return this->symbol;
+string Figure::getSymbol() const{
+    return "_";
 }
 
-ostream& operator<<(ostream& out, const Figure f){
-    if(f.t == Team::T_BLACK) out << "C";
-    else out << "B";
-    out << f.symbol;
-    return out;
+string Figure::show() const{
+    if(getTeam() == Team::T_BLACK) return "B" + getSymbol();
+    return "C" + getSymbol();
 }
 

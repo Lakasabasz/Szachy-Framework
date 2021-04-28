@@ -7,6 +7,7 @@ class Horse: public Figure
 {
 public:
     Horse(Team t);
+    std::string getSymbol() const;
 };
 
 #endif // HORSE_H

@@ -7,6 +7,7 @@ class Queen : public Figure
 {
 public:
     Queen(Team t);
+    std::string getSymbol() const;
 };
 
 #endif // QUEEN_H

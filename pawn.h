@@ -7,6 +7,7 @@ class Pawn : public Figure
 {
 public:
     Pawn(Team t);
+    std::string getSymbol() const;
     virtual list<Field*> getPossibleMovements(Coords myPos, Board* board);
 };
 

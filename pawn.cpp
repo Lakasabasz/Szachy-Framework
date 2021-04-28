@@ -7,6 +7,10 @@ Pawn::Pawn(Team t)
 
 }
 
+std::string Pawn::getSymbol() const{
+    return std::string(1, static_cast<char>(6));
+}
+
 list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board){
     list<Field*> possibleMovements;
     // Ruch o 1

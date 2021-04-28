@@ -13,7 +13,6 @@ class Figure
 {
 private:
     Team t;
-    char symbol;
 public:
     Figure();
     Figure(Team t);
@@ -23,9 +22,8 @@ public:
     virtual void onMoveEvent();
 
     virtual Team getTeam() const;
-    virtual char getSymbol() const;
-
-    friend ostream& operator<<(ostream& out, const Figure f);
+    virtual string getSymbol() const;
+    virtual string show() const;
 };
 
 #endif // FIGURE_H

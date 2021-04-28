@@ -2,6 +2,7 @@
 
 Field::Field(Color c){
     this->c = c;
+    this->f = nullptr;
 }
 
 Field::Field(Color c, Figure* f){
