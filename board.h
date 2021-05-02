@@ -32,13 +32,15 @@ public:
 
     Movement getLastMovement() const;
 
-    void moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to);
+    bool moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to);
     void setFigurePositionFormTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to);
 
     void setFigureAt(FieldsCoordinates fc, int fc2, Figure* fig);
     void removeFigureAt(FieldsCoordinates fc, int fc2, Figure* fig);
 
     void display();
+
+    bool contains(list<Field*> collection, Field* item);
 };
 
 #endif // BOARD_H

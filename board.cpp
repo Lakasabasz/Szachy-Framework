@@ -72,6 +72,33 @@ Movement Board::getLastMovement() const
     return this->history.back();
 }
 
+bool Board::contains(list<Field*> collection, Field* item){
+    for(auto i = collection.begin(); i != collection.end(); i++){
+        if(*i == item) return true;
+    }
+    return false;
+}
+
+bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to)
+{
+    where.second = where.second-1;
+    to.second = to.second - 1;
+    Figure* f = getFigureAt(where);
+    if(f == nullptr){
+        return false;
+    }
+
+    list<Field*> possibleMovements = f->getPossibleMovements(where, this);
+    Field* target = getField(to);
+    if(contains(possibleMovements, target)){
+        setFigureAt(where.first, where.second, nullptr);
+        setFigureAt(to.first, to.second, f);
+        history.push_back(Movement(where, to));
+        return true;
+    }
+    return false;
+}
+
 void Board::setFigureAt(FieldsCoordinates fc, int fc2, Figure *fig)
 {
     fields[fc][fc2]->setFigure(fig);

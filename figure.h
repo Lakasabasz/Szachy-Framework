@@ -18,11 +18,11 @@ public:
     Figure(Team t);
     virtual ~Figure();
 
-    virtual list<Field*> getPossibleMovements(Coords myPos, Board* board);
+    virtual list<Field*> getPossibleMovements(Coords myPos, Board* board) = 0;
     virtual void onMoveEvent();
 
     virtual Team getTeam() const;
-    virtual string getSymbol() const;
+    virtual string getSymbol() const = 0;
     virtual string show() const;
 };
 

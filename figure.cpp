@@ -8,12 +8,6 @@ Figure::Figure(Team t){
 
 Figure::~Figure(){}
 
-list<Field*> Figure::getPossibleMovements(Coords myPos, Board* board){
-    myPos = Coords();
-    board = nullptr;
-    throw "Using virtual class method";
-}
-
 void Figure::onMoveEvent(){}
 
 Team Figure::getTeam() const{
