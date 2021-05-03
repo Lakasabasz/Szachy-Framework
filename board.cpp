@@ -5,6 +5,8 @@
 #include "horse.h"
 #include "queen.h"
 #include "king.h"
+#include "field.h"
+#include "figure.h"
 
 #include <iostream>
 #include <vector>

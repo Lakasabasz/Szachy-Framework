@@ -1,8 +1,10 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+class Field;
+class Figure;
+
 #include "enums.h"
-#include "field.h"
 #include <list>
 #include <vector>
 

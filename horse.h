@@ -8,7 +8,7 @@ class Horse: public Figure
 public:
     Horse(Team t);
     std::string getSymbol() const override;
-    list<Field*> getPossibleMovements(Coords myPos, Board *board) override;
+    list<Field*> getPossibleMovements(Coords myPos, Board *board, bool protecting = false) override;
 };
 
 #endif // HORSE_H

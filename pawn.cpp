@@ -11,7 +11,7 @@ std::string Pawn::getSymbol() const{
     return std::string(1, static_cast<char>(6));
 }
 
-list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board){
+list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board, bool protecting){
     list<Field*> possibleMovements;
     // Ruch o 1
     Coords next = myPos;
@@ -42,10 +42,12 @@ list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board){
         next.first = static_cast<FieldsCoordinates>(static_cast<int>(next.first)-1);
         if(getTeam() == Team::T_WHITE){
             next.second++;
-            if(board->getFigureAt(next)->getTeam() == Team::T_BLACK) possibleMovements.push_back(board->getField(next));
+            if(board->getFigureAt(next) != nullptr &&
+                    (board->getFigureAt(next)->getTeam() == Team::T_BLACK || protecting)) possibleMovements.push_back(board->getField(next));
         } else{
             next.second--;
-            if(board->getFigureAt(next)->getTeam() == Team::T_WHITE) possibleMovements.push_back(board->getField(next));
+            if(board->getFigureAt(next) != nullptr &&
+                    (board->getFigureAt(next)->getTeam() == Team::T_WHITE || protecting)) possibleMovements.push_back(board->getField(next));
         }
     }
 
@@ -55,10 +57,12 @@ list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board){
         next.first = static_cast<FieldsCoordinates>(static_cast<int>(next.first)+1);
         if(getTeam() == Team::T_WHITE){
             next.second++;
-            if(board->getFigureAt(next)->getTeam() == Team::T_BLACK) possibleMovements.push_back(board->getField(next));
+            if(board->getFigureAt(next) != nullptr &&
+                    (board->getFigureAt(next)->getTeam() == Team::T_BLACK || protecting)) possibleMovements.push_back(board->getField(next));
         } else{
             next.second--;
-            if(board->getFigureAt(next)->getTeam() == Team::T_WHITE) possibleMovements.push_back(board->getField(next));
+            if(board->getFigureAt(next) != nullptr &&
+                    (board->getFigureAt(next)->getTeam() == Team::T_WHITE || protecting)) possibleMovements.push_back(board->getField(next));
         }
     }
 

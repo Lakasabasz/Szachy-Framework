@@ -4,10 +4,8 @@
 #include <list>
 #include <iostream>
 #include "enums.h"
+#include "board.h"
 using namespace std;
-
-class Field;
-class Board;
 
 class Figure
 {
@@ -18,7 +16,7 @@ public:
     Figure(Team t);
     virtual ~Figure();
 
-    virtual list<Field*> getPossibleMovements(Coords myPos, Board* board) = 0;
+    virtual list<Field*> getPossibleMovements(Coords myPos, Board* board, bool protecting = false) = 0;
     virtual void onMoveEvent();
 
     virtual Team getTeam() const;
