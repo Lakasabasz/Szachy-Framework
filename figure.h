@@ -16,7 +16,8 @@ public:
     Figure(Team t);
     virtual ~Figure();
 
-    virtual list<Field*> getPossibleMovements(Coords myPos, Board* board, bool protecting = false) = 0;
+    virtual list<Field*> getPossibleMovements(Coords myPos, Board* board, bool protecting = false, bool fullline = false) = 0;
+    virtual list<Field*> getFieldsToEnemyKing(Coords myPos, Board* board, bool withEK = false) = 0;
     virtual void onMoveEvent();
 
     virtual Team getTeam() const;

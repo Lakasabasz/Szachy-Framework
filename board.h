@@ -10,9 +10,6 @@ class Figure;
 
 using namespace std;
 
-const list<FieldsCoordinates> allFC = {FieldsCoordinates::A, FieldsCoordinates::B, FieldsCoordinates::C, FieldsCoordinates::D,
-                                      FieldsCoordinates::E, FieldsCoordinates::F, FieldsCoordinates::G, FieldsCoordinates::H};
-
 class Board
 {
 private:
@@ -43,6 +40,8 @@ public:
     void display();
 
     bool contains(list<Field*> collection, Field* item);
+
+    bool testForEndGame();
 };
 
 #endif // BOARD_H

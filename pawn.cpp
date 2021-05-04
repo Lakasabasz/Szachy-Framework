@@ -11,7 +11,7 @@ std::string Pawn::getSymbol() const{
     return std::string(1, static_cast<char>(6));
 }
 
-list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board, bool protecting){
+list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board, bool protecting, bool fullline){
     list<Field*> possibleMovements;
     // Ruch o 1
     Coords next = myPos;
@@ -111,6 +111,8 @@ list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board, bool protect
             }
         }
     }
+
+#error Przefiltrować ruchy które prowadzą do odsłonięcia własnego króla i narażenie go na atak innych figur oraz gdy nasz król jest szachowany to możliwe są tylko ruchy zasłaniające
 
     return possibleMovements;
 }

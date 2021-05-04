@@ -13,14 +13,14 @@ std::string Tower::getSymbol() const{
  * \param board
  * \return
  */
-list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board){
+list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board, bool protecting, bool fullline){
     list<Field*> ret;
     // Do góry
     if(myPos.second != 7){
         for(int i = myPos.second + 1; i<8; i++){
             if(board->getFigureAt(myPos.first, i) == nullptr){
                 ret.push_back(board->getField(myPos.first, i));
-            } else if(board->getFigureAt(myPos.first, i)->getTeam() != getTeam()){
+            } else if(board->getFigureAt(myPos.first, i)->getTeam() != getTeam() || protecting){
                 ret.push_back(board->getField(myPos.first, i));
                 break;
             } else{
@@ -34,7 +34,7 @@ list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board){
         for(int i = myPos.second - 1; i>-1; i--){
             if(board->getFigureAt(myPos.first, i) == nullptr){
                 ret.push_back(board->getField(myPos.first, i));
-            } else if(board->getFigureAt(myPos.first, i)->getTeam() != getTeam()){
+            } else if(board->getFigureAt(myPos.first, i)->getTeam() != getTeam() || protecting){
                 ret.push_back(board->getField(myPos.first, i));
                 break;
             } else{
@@ -43,6 +43,35 @@ list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board){
         }
     }
 
-    // TODO W lewo
-    // TODO W prawo
+    // W lewo
+    if(myPos.first != FieldsCoordinates::A){
+        auto mpF = static_cast<int>(myPos.first);
+        for(auto i = mpF-1; i > -1; i--){
+            if(board->getFigureAt(static_cast<FieldsCoordinates>(i), myPos.second) == nullptr){
+                ret.push_back(board->getField(static_cast<FieldsCoordinates>(i), myPos.second));
+            } else if(board->getFigureAt(static_cast<FieldsCoordinates>(i), myPos.second)->getTeam() != getTeam() || protecting){
+                ret.push_back(board->getField(static_cast<FieldsCoordinates>(i), myPos.second));
+                break;
+            } else{
+                break;
+            }
+        }
+    }
+
+    // W prawo
+    if(myPos.first != FieldsCoordinates::H){
+        auto mpF = static_cast<int>(myPos.first);
+        for(auto i = mpF+1; i < 8; i++){
+            if(board->getFigureAt(static_cast<FieldsCoordinates>(i), myPos.second) == nullptr){
+                ret.push_back(board->getField(static_cast<FieldsCoordinates>(i), myPos.second));
+            } else if(board->getFigureAt(static_cast<FieldsCoordinates>(i), myPos.second)->getTeam() != getTeam() || protecting){
+                ret.push_back(board->getField(static_cast<FieldsCoordinates>(i), myPos.second));
+                break;
+            } else{
+                break;
+            }
+        }
+    }
+
+    return ret;
 }

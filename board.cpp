@@ -59,9 +59,19 @@ Board::~Board()
     }
 }
 
+Field *Board::getField(FieldsCoordinates fc, int fc2)
+{
+    return this->fields[fc][fc2];
+}
+
 Field *Board::getField(Coords pos)
 {
     return this->fields[pos.first][pos.second];
+}
+
+Figure *Board::getFigureAt(FieldsCoordinates fc, int fc2)
+{
+    return this->fields[fc][fc2]->getFigure();
 }
 
 Figure* Board::getFigureAt(Coords pos)
@@ -83,6 +93,8 @@ bool Board::contains(list<Field*> collection, Field* item){
 
 bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to)
 {
+    if(testForEndGame()) return false;
+
     where.second = where.second-1;
     to.second = to.second - 1;
     Figure* f = getFigureAt(where);

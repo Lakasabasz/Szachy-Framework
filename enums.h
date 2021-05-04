@@ -2,11 +2,15 @@
 #define ENUMS_H
 
 #include <utility>
+#include <list>
 
 enum FieldsCoordinates{
     A = 0,
     B = 1, C = 2, D = 3, E = 4, F = 5, G = 6, H = 7
 };
+
+const std::list<FieldsCoordinates> allFC = {FieldsCoordinates::A, FieldsCoordinates::B, FieldsCoordinates::C, FieldsCoordinates::D,
+                                      FieldsCoordinates::E, FieldsCoordinates::F, FieldsCoordinates::G, FieldsCoordinates::H};
 
 enum Color{
     C_BLACK,
