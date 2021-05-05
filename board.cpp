@@ -107,6 +107,7 @@ bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoor
     if(contains(possibleMovements, target)){
         setFigureAt(where.first, where.second, nullptr);
         setFigureAt(to.first, to.second, f);
+        f->onMoveEvent();
         history.push_back(Movement(where, to));
         return true;
     }

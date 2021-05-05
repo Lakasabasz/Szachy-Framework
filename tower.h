@@ -5,6 +5,8 @@
 
 class Tower : public Figure
 {
+private:
+    bool wasMoved;
 public:
     Tower(Team t);
     std::string getSymbol() const override;

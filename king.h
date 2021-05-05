@@ -5,10 +5,12 @@
 
 class King : public Figure
 {
+private:
+    bool moved;
 public:
     King(Team t);
     std::string getSymbol() const override;
-    list<Field*> getPossibleMovements(Coords myPos, Board *board, bool protecting = false) override;
+    list<Field*> getPossibleMovements(Coords myPos, Board *board, bool protecting = false, bool fullline = false) override;
     list<Field*> getFieldsToEnemyKing(Coords myPos, Board* board, bool withEK = false) override;
 };
 
