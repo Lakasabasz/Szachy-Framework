@@ -13,7 +13,7 @@ std::string Tower::getSymbol() const{
  * \param board
  * \return
  */
-list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board, bool protecting, bool fullline){
+list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board, bool protecting){
     list<Field*> ret;
     // Do góry
     if(myPos.second != 7){

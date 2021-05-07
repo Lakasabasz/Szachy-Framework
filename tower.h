@@ -6,12 +6,14 @@
 class Tower : public Figure
 {
 private:
-    bool wasMoved;
+    bool moved = false;
 public:
     Tower(Team t);
     std::string getSymbol() const override;
-    list<Field*> getPossibleMovements(Coords myPos, Board *board, bool protecting = false, bool fullline = false) override;
-    list<Field*> getFieldsToEnemyKing(Coords myPos, Board* board, bool withEK = false) override;
+    list<Field*> getPossibleMovements(Coords myPos, Board *board, bool protecting = false) override;
+    list<Field*> getFieldsToEnemyKing(Coords myPos, Board* board, bool withMe = false, bool ignoreOneEnemy = false) override;
+    
+    bool wasMoved();
 };
 
 #endif // TOWER_H

@@ -29,6 +29,8 @@ public:
     list<Figure*> getAllFiguresByTeam(Team t);
     list<Figure*> whichFigureCanMoveOn(FieldsCoordinates fc, int fc2);
 
+    Coords getKingPosition(Team t);
+    Coords getAttackerPosition(Team t);
     Movement getLastMovement() const;
 
     bool moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to);
@@ -40,8 +42,9 @@ public:
     void display();
 
     bool contains(list<Field*> collection, Field* item);
-
     bool testForEndGame();
+    bool isKingChecked(Team t);
+    bool isPossibleToCoverKing(Team t);
 };
 
 #endif // BOARD_H
