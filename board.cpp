@@ -79,6 +79,18 @@ Figure* Board::getFigureAt(Coords pos)
     return this->fields[pos.first][pos.second]->getFigure();
 }
 
+Coords Board::getKingPosition(Team t)
+{
+    for(int x = 0; x < 8; x++){
+        for(int y = 0; y < 8; y++){
+            if(fields[x][y]->getFigure() != nullptr &&
+               fields[x][y]->getFigure()->getTeam() == t &&
+               dynamic_cast<King*>(fields[x][y]->getFigure()) != nullptr) return Coords(FieldsCoordinates(x), y);
+        }
+    }
+    return Coords(FieldsCoordinates::A, -1);
+}
+
 Movement Board::getLastMovement() const
 {
     return this->history.back();

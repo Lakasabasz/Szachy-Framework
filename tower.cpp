@@ -47,10 +47,10 @@ list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board, bool protec
     if(myPos.first != FieldsCoordinates::A){
         auto mpF = static_cast<int>(myPos.first);
         for(auto i = mpF-1; i > -1; i--){
-            if(board->getFigureAt(static_cast<FieldsCoordinates>(i), myPos.second) == nullptr){
-                ret.push_back(board->getField(static_cast<FieldsCoordinates>(i), myPos.second));
-            } else if(board->getFigureAt(static_cast<FieldsCoordinates>(i), myPos.second)->getTeam() != getTeam() || protecting){
-                ret.push_back(board->getField(static_cast<FieldsCoordinates>(i), myPos.second));
+            if(board->getFigureAt(FieldsCoordinates(i), myPos.second) == nullptr){
+                ret.push_back(board->getField(FieldsCoordinates(i), myPos.second));
+            } else if(board->getFigureAt(FieldsCoordinates(i), myPos.second)->getTeam() != getTeam() || protecting){
+                ret.push_back(board->getField(FieldsCoordinates(i), myPos.second));
                 break;
             } else{
                 break;
@@ -62,16 +62,18 @@ list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board, bool protec
     if(myPos.first != FieldsCoordinates::H){
         auto mpF = static_cast<int>(myPos.first);
         for(auto i = mpF+1; i < 8; i++){
-            if(board->getFigureAt(static_cast<FieldsCoordinates>(i), myPos.second) == nullptr){
-                ret.push_back(board->getField(static_cast<FieldsCoordinates>(i), myPos.second));
-            } else if(board->getFigureAt(static_cast<FieldsCoordinates>(i), myPos.second)->getTeam() != getTeam() || protecting){
-                ret.push_back(board->getField(static_cast<FieldsCoordinates>(i), myPos.second));
+            if(board->getFigureAt(FieldsCoordinates(i), myPos.second) == nullptr){
+                ret.push_back(board->getField(FieldsCoordinates(i), myPos.second));
+            } else if(board->getFigureAt(FieldsCoordinates(i), myPos.second)->getTeam() != getTeam() || protecting){
+                ret.push_back(board->getField(FieldsCoordinates(i), myPos.second));
                 break;
             } else{
                 break;
             }
         }
     }
+
+    ret = excludeImpossibleMovements(ret, board, myPos);
 
     return ret;
 }

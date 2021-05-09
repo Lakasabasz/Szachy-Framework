@@ -11,6 +11,8 @@ class Figure
 {
 private:
     Team t;
+protected:
+    list<Field*> excludeImpossibleMovements(list<Field*> possibleMovements, Board* board, Coords myPos);
 public:
     Figure();
     Figure(Team t);
