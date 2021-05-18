@@ -123,7 +123,10 @@ list<Field *> Pawn::getFieldsToEnemyKing(Coords myPos, Board *board, bool withMe
     list<Field*> ret;
     // Sprawdzić czy na bicie działa
     if(withMe){
-        ret.push_back(board->getField(myPos));
+        Coords eKP = board->getKingPosition(getTeam()==Team::T_BLACK?Team::T_WHITE:Team::T_BLACK);
+        if(abs(eKP.first-myPos.first) == 1)
+            if((getTeam() == Team::T_WHITE && myPos.second+1 == eKP.second)
+            || (getTeam() == Team::T_BLACK && myPos.second-1 == eKP.second)) ret.push_back(board->getField(myPos));
     }
     return ret;
 }
