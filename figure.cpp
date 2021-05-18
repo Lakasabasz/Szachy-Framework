@@ -2,7 +2,6 @@
 
 list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements, Board* board, Coords myPos)
 {
-    // TODO Filtr przypiętych i szachowanych figur przenieść do Figure
     Coords pinningFigure = Coords(FieldsCoordinates::A, -1);
     Coords myKingPos = board->getKingPosition(getTeam());
     // Test dla ataku prostego

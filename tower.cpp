@@ -77,3 +77,67 @@ list<Field*> Tower::getPossibleMovements(Coords myPos, Board *board, bool protec
 
     return ret;
 }
+
+list<Field *> Tower::getFieldsToEnemyKing(Coords myPos, Board *board, bool withMe, bool ignoreOneEnemy)
+{
+    list<Field*> ret;
+    Coords enemyKingPosition = board->getKingPosition(getTeam()==Team::T_BLACK?(Team::T_WHITE):(Team::T_BLACK));
+    if(!isOnMyLine(myPos, enemyKingPosition)){
+        return ret;
+    }
+    if(withMe) ret.push_back(board->getField(myPos));
+    if(myPos.first == enemyKingPosition.first){
+        if(myPos.second > enemyKingPosition.second){
+            for(int i = myPos.second - 1; i > enemyKingPosition.second; i--){
+                if(board->getFigureAt(myPos.first, i) == nullptr) ret.push_back(board->getField(myPos.first, i));
+                else if(board->getFigureAt(myPos.first, i)->getTeam() != getTeam() && ignoreOneEnemy){
+                    ignoreOneEnemy = false;
+                    ret.push_back(board->getField(myPos.first, i));
+                } else{
+                    ret.clear();
+                    return ret;
+                }
+            }
+        } else{
+            for(int i = myPos.second + 1; i < enemyKingPosition.second; i++){
+                if(board->getFigureAt(myPos.first, i) == nullptr) ret.push_back(board->getField(myPos.first, i));
+                else if(board->getFigureAt(myPos.first, i)->getTeam() != getTeam() && ignoreOneEnemy){
+                    ignoreOneEnemy = false;
+                    ret.push_back(board->getField(myPos.first, i));
+                } else{
+                    ret.clear();
+                    return ret;
+                }
+            }
+        }
+    } else{
+        if(myPos.first > enemyKingPosition.first){
+            for(int i = myPos.first - 1; i > enemyKingPosition.first; i--){
+                if(board->getFigureAt(FieldsCoordinates(i), myPos.second) == nullptr) ret.push_back(board->getField(FieldsCoordinates(i), myPos.second));
+                else if(board->getFigureAt(FieldsCoordinates(i), myPos.second)->getTeam() != getTeam() && ignoreOneEnemy){
+                    ignoreOneEnemy = false;
+                    ret.push_back(board->getField(FieldsCoordinates(i), myPos.second));
+                } else{
+                    ret.clear();
+                    return ret;
+                }
+            }
+        } else{
+            for(int i = myPos.first + 1; i < enemyKingPosition.first; i++){
+                if(board->getFigureAt(FieldsCoordinates(i), myPos.second) == nullptr) ret.push_back(board->getField(FieldsCoordinates(i), myPos.second));
+                else if(board->getFigureAt(FieldsCoordinates(i), myPos.second)->getTeam() != getTeam() && ignoreOneEnemy){
+                    ignoreOneEnemy = false;
+                    ret.push_back(board->getField(FieldsCoordinates(i), myPos.second));
+                } else{
+                    ret.clear();
+                    return ret;
+                }
+            }
+        }
+    }
+    return ret;
+}
+
+bool Tower::isOnMyLine(Coords my, Coords other){
+    return my.first == other.first || my.second == other.second;
+}

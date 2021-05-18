@@ -7,6 +7,7 @@ class Tower : public Figure
 {
 private:
     bool moved = false;
+    bool isOnMyLine(Coords my, Coords other);
 public:
     Tower(Team t);
     std::string getSymbol() const override;

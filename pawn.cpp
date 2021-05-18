@@ -121,6 +121,7 @@ list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board, bool protect
 list<Field *> Pawn::getFieldsToEnemyKing(Coords myPos, Board *board, bool withMe, bool)
 {
     list<Field*> ret;
+    // Sprawdzić czy na bicie działa
     if(withMe){
         ret.push_back(board->getField(myPos));
     }
