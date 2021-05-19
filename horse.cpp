@@ -16,3 +16,28 @@ list <Field*> Horse::getFieldsToEnemyKing(Coords myPos, Board *board, bool withM
     }
     return ret;
 }
+
+list <Field*> Horse::getPossibleMovements(Coords myPos, Board *board, bool protecting){
+    list<Field*> possibleMovements;
+    list<pair<int, int>> deltaCoords;
+    deltaCoords.push_back(make_pair(-1, -2));
+    deltaCoords.push_back(make_pair(-2, -1));
+    deltaCoords.push_back(make_pair(1, -2));
+    deltaCoords.push_back(make_pair(2, -1));
+    deltaCoords.push_back(make_pair(-1, 2));
+    deltaCoords.push_back(make_pair(-2, 1));
+    deltaCoords.push_back(make_pair(1, 2));
+    deltaCoords.push_back(make_pair(2, 1));
+
+    for(auto i : deltaCoords){
+        if(myPos.first + i.first > -1 && myPos.first + i.first < 8 && myPos.second + i.second > -1 && myPos.second + i.second < 8){
+            if(board->getFigureAt(FieldsCoordinates(myPos.first+i.first), myPos.second+i.second) == nullptr
+              || board->getFigureAt(FieldsCoordinates(myPos.first+i.first), myPos.second+i.second)->getTeam() != getTeam()
+              || protecting) possibleMovements.push_back(board->getField(FieldsCoordinates(myPos.first+i.first), myPos.second+i.second));
+        }
+    }
+    possibleMovements = excludeImpossibleMovements(possibleMovements, board, myPos);
+
+    return possibleMovements;
+
+}
