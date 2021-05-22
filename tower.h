@@ -3,6 +3,8 @@
 
 #include "figure.h"
 
+class Queen;
+
 class Tower : public Figure
 {
 private:
@@ -15,6 +17,8 @@ public:
     list<Field*> getFieldsToEnemyKing(Coords myPos, Board* board, bool withMe = false, bool ignoreOneEnemy = false) override;
     
     bool wasMoved();
+
+    friend Queen;
 };
 
 #endif // TOWER_H

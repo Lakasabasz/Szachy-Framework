@@ -5,6 +5,9 @@
 
 class Queen : public Figure
 {
+private:
+    Tower tNature;
+    Bishop bNature;
 public:
     Queen(Team t);
     std::string getSymbol() const override;
