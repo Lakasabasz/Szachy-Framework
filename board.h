@@ -45,6 +45,8 @@ public:
     bool testForEndGame();
     bool isKingChecked(Team t);
     bool isPossibleToCoverKing(Team t);
+    bool canEnemyMoveOnField(Team myTeam, Coords testing);
+    bool canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y);
 };
 
 #endif // BOARD_H

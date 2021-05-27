@@ -138,6 +138,11 @@ list<Field *> Tower::getFieldsToEnemyKing(Coords myPos, Board *board, bool withM
     return ret;
 }
 
+bool Tower::wasMoved()
+{
+    return this->moved;
+}
+
 bool Tower::isOnMyLine(Coords my, Coords other){
     return my.first == other.first || my.second == other.second;
 }

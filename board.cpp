@@ -103,6 +103,11 @@ bool Board::contains(list<Field*> collection, Field* item){
     return false;
 }
 
+bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
+{
+    return canEnemyMoveOnField(myTeam, Coords(x, y));
+}
+
 bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to)
 {
     if(testForEndGame()) return false;
