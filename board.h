@@ -30,7 +30,9 @@ public:
     list<Figure*> whichFigureCanMoveOn(FieldsCoordinates fc, int fc2);
 
     Coords getKingPosition(Team t);
-    Coords getAttackerPosition(Team t);
+    Coords getFirstAttackerPosition(Team attackerTeam);
+    Coords getFigureCoords(Figure* fig);
+
     Movement getLastMovement() const;
 
     bool moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to);
@@ -40,6 +42,8 @@ public:
     void removeFigureAt(FieldsCoordinates fc, int fc2, Figure* fig);
 
     void display();
+
+    list<Field*> merge(list<Field*> a, list<Field*> b);
 
     bool contains(list<Field*> collection, Field* item);
     bool testForEndGame();

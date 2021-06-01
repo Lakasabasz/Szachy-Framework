@@ -79,6 +79,17 @@ Figure* Board::getFigureAt(Coords pos)
     return this->fields[pos.first][pos.second]->getFigure();
 }
 
+list<Figure *> Board::getAllFiguresByTeam(Team t)
+{
+    list<Figure*> list;
+    for(int x = 0; x < 7; x++){
+        for(int y = 0; y < 7; y++){
+            if(getFigureAt(FieldsCoordinates(x), y) != nullptr && getFigureAt(FieldsCoordinates(x), y)->getTeam() == t) list.push_back(getFigureAt(FieldsCoordinates(x), y));
+        }
+    }
+    return list;
+}
+
 Coords Board::getKingPosition(Team t)
 {
     for(int x = 0; x < 8; x++){
@@ -91,6 +102,36 @@ Coords Board::getKingPosition(Team t)
     return Coords(FieldsCoordinates::A, -1);
 }
 
+Coords Board::getFirstAttackerPosition(Team attackerTeam)
+{
+    list<Figure*> figuresList;
+    if(attackerTeam == T_WHITE){
+        figuresList = getAllFiguresByTeam(T_BLACK);
+    } else{
+        figuresList = getAllFiguresByTeam(T_WHITE);
+    }
+    Figure* first = nullptr;
+    for(auto fig : figuresList){
+        auto fielToEnem = fig->getFieldsToEnemyKing(getFigureCoords(fig), this, true);
+        if(fielToEnem.size() != 0) {
+            first = fig;
+            break;
+        }
+    }
+    return getFigureCoords(first);
+}
+
+Coords Board::getFigureCoords(Figure *fig)
+{
+    int x, y;
+    for(x = 0; x < 7; x++){
+        for(y = 0; y < 7; y++){
+            if(getFigureAt(FieldsCoordinates(x), y) == fig) break;
+        }
+    }
+    return Coords(FieldsCoordinates(x), y);
+}
+
 Movement Board::getLastMovement() const
 {
     return this->history.back();
@@ -99,6 +140,56 @@ Movement Board::getLastMovement() const
 bool Board::contains(list<Field*> collection, Field* item){
     for(auto i = collection.begin(); i != collection.end(); i++){
         if(*i == item) return true;
+    }
+    return false;
+}
+
+bool Board::isKingChecked(Team t)
+{
+    list<Figure*> figuresList;
+    if(t == T_WHITE){
+        figuresList = getAllFiguresByTeam(T_BLACK);
+    } else{
+        figuresList = getAllFiguresByTeam(T_WHITE);
+    }
+    for(auto fig : figuresList){
+        auto fielToEnem = fig->getFieldsToEnemyKing(getFigureCoords(fig), this, true);
+        if(fielToEnem.size() != 0) return true;
+    }
+    return false;
+}
+
+bool Board::isPossibleToCoverKing(Team t)
+{
+    list<Figure*> figuresList;
+    if(t == T_WHITE){
+        figuresList = getAllFiguresByTeam(T_BLACK);
+    } else{
+        figuresList = getAllFiguresByTeam(T_WHITE);
+    }
+    bool rangeFigureCheck = false;
+    for(auto fig : figuresList){
+        auto fielToEnem = fig->getFieldsToEnemyKing(getFigureCoords(fig), this, true);
+        if(fielToEnem.size() == 1) return false;
+        else if(fielToEnem.size() > 1){
+            if(rangeFigureCheck) return false;
+            else rangeFigureCheck = true;
+        }
+    }
+    return rangeFigureCheck;
+}
+
+bool Board::canEnemyMoveOnField(Team myTeam, Coords testing)
+{
+    list<Figure*> figuresList;
+    if(myTeam == T_WHITE){
+        figuresList = getAllFiguresByTeam(T_BLACK);
+    } else{
+        figuresList = getAllFiguresByTeam(T_WHITE);
+    }
+    for(auto fig : figuresList){
+        auto possMov = fig->getPossibleMovements(getFigureCoords(fig), this);
+        if(contains(possMov, getField(testing))) return true;
     }
     return false;
 }

@@ -112,7 +112,7 @@ list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements
     // Po tym etapie wiemy, jakie mamy ruchy będąc przypiętymi lub nie
     if(board->isKingChecked(getTeam())){
         if(board->isPossibleToCoverKing(getTeam())){
-            Coords checkingFigurePosition = board->getAttackerPosition(getTeam());
+            Coords checkingFigurePosition = board->getFirstAttackerPosition(getTeam()==T_WHITE?T_BLACK:T_WHITE);
             auto lineToOwnKing = board->getFigureAt(checkingFigurePosition)->getFieldsToEnemyKing(checkingFigurePosition, board, true);
             // Porównanie lineToOwnKing z possibleMovements
             possibleMovements = commonPart(lineToOwnKing, possibleMovements);
