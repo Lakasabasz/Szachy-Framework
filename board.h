@@ -5,6 +5,7 @@ class Field;
 class Figure;
 
 #include "enums.h"
+#include "history.h"
 #include <list>
 #include <vector>
 
@@ -14,7 +15,7 @@ class Board
 {
 private:
     Field* fields[8][8];
-    vector<Movement> history;
+    History history;
 
 public:
     Board(bool defaultPositions);
@@ -33,7 +34,7 @@ public:
     Coords getFirstAttackerPosition(Team attackerTeam);
     Coords getFigureCoords(Figure* fig);
 
-    Movement getLastMovement() const;
+    Movement getLastMovement();
 
     bool moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to);
     void setFigurePositionFormTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to);

@@ -132,9 +132,9 @@ Coords Board::getFigureCoords(Figure *fig)
     return Coords(FieldsCoordinates(x), y);
 }
 
-Movement Board::getLastMovement() const
+Movement Board::getLastMovement()
 {
-    return this->history.back();
+    return this->history.lastMovement();
 }
 
 bool Board::contains(list<Field*> collection, Field* item){
@@ -142,6 +142,53 @@ bool Board::contains(list<Field*> collection, Field* item){
         if(*i == item) return true;
     }
     return false;
+}
+
+bool Board::testForEndGame()
+{
+    Team move = getFigureAt(getLastMovement().second)->getTeam()==T_WHITE?T_BLACK:T_WHITE;
+    // Test mata i pata
+    bool end = true;
+    auto figures = getAllFiguresByTeam(move);
+    for(auto fig : figures){
+        if(fig->getPossibleMovements(getFigureCoords(fig), this).size() != 0){
+            end = false;
+            break;
+        }
+    }
+    if(end) return true;
+
+    // Test ilości figur (min. 1 pionek/2 gońce/2 konie/koń+goniec/1 wieża/1 królówka
+    int goniec = 0, horse = 0;
+    end = true;
+    for(auto fig : figures){
+        if(dynamic_cast<Bishop*>(fig) != nullptr) goniec += 1;
+        else if(dynamic_cast<Horse*>(fig) != nullptr) horse += 1;
+        else if(dynamic_cast<King*>(fig) != nullptr) continue;
+        else{
+            end = false;
+            break;
+        }
+    }
+    if(goniec > 1 || horse > 1 || (goniec == 1 && horse == 1)) end = false;
+    if(end){
+        goniec = 0;
+        horse = 0;
+        auto secFigures = getAllFiguresByTeam(getFigureAt(getLastMovement().second)->getTeam());
+        for(auto fig : secFigures){
+            if(dynamic_cast<Bishop*>(fig) != nullptr) goniec += 1;
+            else if(dynamic_cast<Horse*>(fig) != nullptr) horse += 1;
+            else if(dynamic_cast<King*>(fig) != nullptr) continue;
+            else{
+                end = false;
+                break;
+            }
+        }
+    }
+    if(end && (goniec > 1 || horse > 1 || (goniec == 1 && horse == 1))) return true;
+
+    // Test 50 ruchów bez ruchu pionkiem ani zbicia jakiejś figury
+    if(history.getPawnMovesInMovesBack(50) == 0 && history.getFiguresDeadInMovesBack(50) == 0) return true;
 }
 
 bool Board::isKingChecked(Team t)
@@ -201,6 +248,7 @@ bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
 
 bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to)
 {
+#warning "Sprawdzic zachowanie dla zbicia i rozszady"
     if(testForEndGame()) return false;
 
     where.second = where.second-1;
@@ -216,7 +264,7 @@ bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoor
         setFigureAt(where.first, where.second, nullptr);
         setFigureAt(to.first, to.second, f);
         f->onMoveEvent();
-        history.push_back(Movement(where, to));
+        history.add(Movement(where, to));
         return true;
     }
     return false;
