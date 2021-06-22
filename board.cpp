@@ -12,6 +12,13 @@
 #include <vector>
 using namespace std;
 
+bool Board::killFigure(Figure *f)
+{
+    if(f == nullptr) return false;
+    this->deadFigures.push_back(f);
+    return true;
+}
+
 Board::Board(bool defaultPositions){
     for(int a = 0; a < 8; a++){
         for(int i = 0; i < 8; i++){
@@ -261,10 +268,11 @@ bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoor
     list<Field*> possibleMovements = f->getPossibleMovements(where, this);
     Field* target = getField(to);
     if(contains(possibleMovements, target)){
+        bool dead = killFigure(getFigureAt(where.first, where.second));
         setFigureAt(where.first, where.second, nullptr);
         setFigureAt(to.first, to.second, f);
         f->onMoveEvent();
-        history.add(Movement(where, to));
+        history.add(Movement(where, to), f, dead);
         return true;
     }
     return false;

@@ -16,6 +16,9 @@ class Board
 private:
     Field* fields[8][8];
     History history;
+    list<Figure*> deadFigures;
+
+    bool killFigure(Figure* f);
 
 public:
     Board(bool defaultPositions);
