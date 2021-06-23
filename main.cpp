@@ -11,10 +11,14 @@ int main()
     Board b(true);
     cout << "Setup complete, trying to display: " << endl;
     b.display();
-    cout << "Trying to make first move: " << endl;
-    b.moveFigureFromTo(Coords(FieldsCoordinates::D, 2), Coords(FieldsCoordinates::D, 4));
-    b.display();
-    cout << "Trying to make next few steps: " << endl;
+    cout << "\nTrying to make first move: " << endl;
+    bool done = b.moveFigureFromTo(Coords(FieldsCoordinates::D, 2), Coords(FieldsCoordinates::D, 4));
+    if(done) b.display();
+    else{
+        cout << "Move are undone";
+        return 0;
+    }
+    cout << "\nTrying to make next few steps: " << endl;
     b.moveFigureFromTo(Coords(FieldsCoordinates::D, 7), Coords(FieldsCoordinates::D, 5));
     b.moveFigureFromTo(Coords(FieldsCoordinates::C, 1), Coords(FieldsCoordinates::F, 4));
     b.moveFigureFromTo(Coords(FieldsCoordinates::C, 8), Coords(FieldsCoordinates::F, 5));

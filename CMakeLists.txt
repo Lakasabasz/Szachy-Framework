@@ -5,6 +5,7 @@ project(Framework LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
 add_executable(Framework main.cpp
     figure.cpp figure.h
     field.cpp field.h
@@ -16,5 +17,7 @@ add_executable(Framework main.cpp
     queen.cpp queen.h
     king.cpp king.h
     history.cpp history.h
+    exceptions/coordsoutofboardexception.cpp exceptions/coordsoutofboardexception.h
+    exceptions/usagewrongmovementexception.cpp exceptions/usagewrongmovementexception.h
     enums.h
 )

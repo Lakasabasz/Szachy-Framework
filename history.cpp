@@ -3,7 +3,7 @@
 
 History::History()
 {
-
+    last = WRONG_MOVEMENT;
 }
 
 Movement History::lastMovement()
@@ -11,19 +11,21 @@ Movement History::lastMovement()
     return last;
 }
 
-bool History::getPawnMovesInMovesBack(unsigned int moves)
+int History::getPawnMovesInMovesBack(unsigned int moves)
 {
     auto counter = 0u;
-    for(auto i = 0u; i<moves; i++){
+    if(recorded.size() == 0) return -1;
+    for(auto i = 0u; i<recorded.size()-1 && i<moves; i++){
         counter += recorded[recorded.size()-i+1][0];
     }
     return counter;
 }
 
-bool History::getFiguresDeadInMovesBack(unsigned int moves)
+int History::getFiguresDeadInMovesBack(unsigned int moves)
 {
     auto counter = 0u;
-    for(auto i = 0u; i<moves; i++){
+    if(recorded.size() == 0) return -1;
+    for(auto i = 0u; i<recorded.size()-1 && i<moves; i++){
         counter += recorded[recorded.size()-i+1][1];
     }
     return counter;
@@ -39,4 +41,9 @@ bool History::add(Movement move, Figure *fig, bool kill)
     recorded.push_back(frame);
     last = move;
     return true;
+}
+
+int History::movesDone()
+{
+    return recorded.size();
 }

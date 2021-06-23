@@ -25,4 +25,7 @@ enum Team{
 typedef std::pair<FieldsCoordinates, int> Coords;
 typedef std::pair<Coords, Coords> Movement;
 
+const Coords WRONG_COORDS(FieldsCoordinates::A, -10);
+const Movement WRONG_MOVEMENT(WRONG_COORDS, WRONG_COORDS);
+
 #endif // ENUMS_H

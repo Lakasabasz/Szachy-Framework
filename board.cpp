@@ -8,6 +8,9 @@
 #include "field.h"
 #include "figure.h"
 
+#include "exceptions/usagewrongmovementexception.h"
+#include "exceptions/coordsoutofboardexception.h"
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -83,6 +86,9 @@ Figure *Board::getFigureAt(FieldsCoordinates fc, int fc2)
 
 Figure* Board::getFigureAt(Coords pos)
 {
+    if(pos.second < 0){
+        throw CoordsOutOfBoardException();
+    }
     return this->fields[pos.first][pos.second]->getFigure();
 }
 
@@ -153,6 +159,9 @@ bool Board::contains(list<Field*> collection, Field* item){
 
 bool Board::testForEndGame()
 {
+    auto lastMovement = getLastMovement();
+    if(lastMovement == WRONG_MOVEMENT && history.movesDone() == 0) return false;
+    else if(lastMovement == WRONG_MOVEMENT) throw UsageWrongMovementException();
     Team move = getFigureAt(getLastMovement().second)->getTeam()==T_WHITE?T_BLACK:T_WHITE;
     // Test mata i pata
     bool end = true;
@@ -196,6 +205,7 @@ bool Board::testForEndGame()
 
     // Test 50 ruchów bez ruchu pionkiem ani zbicia jakiejś figury
     if(history.getPawnMovesInMovesBack(50) == 0 && history.getFiguresDeadInMovesBack(50) == 0) return true;
+    return false;
 }
 
 bool Board::isKingChecked(Team t)
@@ -286,10 +296,10 @@ void Board::setFigureAt(FieldsCoordinates fc, int fc2, Figure *fig)
 void Board::display()
 {
     //vector<string> toDisplay;
-    for(int x = 7; x > -1; x--){
+    for(int x = 0; x < 8; x++){
         for(int y = 0; y < 8; y++){
             if(fields[y][x]->getFigure() == nullptr){
-                cout << "__";
+                cout << "[]";
             } else cout << fields[y][x]->getFigure()->show();
         }
         cout << endl;

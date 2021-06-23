@@ -22,9 +22,11 @@ public:
     History();
 
     Movement lastMovement();
-    bool getPawnMovesInMovesBack(unsigned int moves);
-    bool getFiguresDeadInMovesBack(unsigned int moves);
+    int getPawnMovesInMovesBack(unsigned int moves);
+    int getFiguresDeadInMovesBack(unsigned int moves);
     bool add(Movement move, Figure* fig, bool kill);
+
+    int movesDone();
 };
 
 #endif // HISTORY_H

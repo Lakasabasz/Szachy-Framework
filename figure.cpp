@@ -86,6 +86,7 @@ list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements
             }
         } else if(x < 0){
             for(int i = myPos.first-1; i>-1; i--){
+                if(a*i+b < 0) continue;
                 Coords testPoint(FieldsCoordinates(i), (a*i)+b);
                 Figure* tested = board->getFigureAt(testPoint);
                 if(tested == nullptr) continue;
