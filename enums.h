@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <list>
+#include <string>
 
 enum FieldsCoordinates{
     A = 0,
@@ -11,6 +12,7 @@ enum FieldsCoordinates{
 
 const std::list<FieldsCoordinates> allFC = {FieldsCoordinates::A, FieldsCoordinates::B, FieldsCoordinates::C, FieldsCoordinates::D,
                                       FieldsCoordinates::E, FieldsCoordinates::F, FieldsCoordinates::G, FieldsCoordinates::H};
+const std::string FCNames[8] = {"A ", "B ", "C ", "D ", "E ", "F ", "G ", "H "};
 
 enum Color{
     C_BLACK,

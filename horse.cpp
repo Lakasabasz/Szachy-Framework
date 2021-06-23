@@ -19,15 +19,16 @@ list <Field*> Horse::getFieldsToEnemyKing(Coords myPos, Board *board, bool withM
 
 list <Field*> Horse::getPossibleMovements(Coords myPos, Board *board, bool protecting){
     list<Field*> possibleMovements;
-    list<pair<int, int>> deltaCoords;
-    deltaCoords.push_back(make_pair(-1, -2));
-    deltaCoords.push_back(make_pair(-2, -1));
-    deltaCoords.push_back(make_pair(1, -2));
-    deltaCoords.push_back(make_pair(2, -1));
-    deltaCoords.push_back(make_pair(-1, 2));
-    deltaCoords.push_back(make_pair(-2, 1));
-    deltaCoords.push_back(make_pair(1, 2));
-    deltaCoords.push_back(make_pair(2, 1));
+    pair<int, int> deltaCoords[] = {
+        make_pair(-1, -2),
+        make_pair(-2, -1),
+        make_pair(1, -2),
+        make_pair(2, -1),
+        make_pair(-1, 2),
+        make_pair(-2, 1),
+        make_pair(1, 2),
+        make_pair(2, 1)
+    };
 
     for(auto i : deltaCoords){
         if(myPos.first + i.first > -1 && myPos.first + i.first < 8 && myPos.second + i.second > -1 && myPos.second + i.second < 8){

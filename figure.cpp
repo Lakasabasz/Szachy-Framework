@@ -152,7 +152,7 @@ string Figure::getSymbol() const{
 }
 
 string Figure::show() const{
-    if(getTeam() == Team::T_BLACK) return "B" + getSymbol();
-    return "C" + getSymbol();
+    if(getTeam() == Team::T_BLACK) return "C" + getSymbol();
+    return "B" + getSymbol();
 }
 

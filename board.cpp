@@ -64,7 +64,7 @@ Board::~Board()
 {
     for(int i = 0; i<8; i++){
         for(int x = 0; x<8; x++){
-            delete fields[i][x];
+            delete[] fields[i][x];
         }
     }
 }
@@ -95,9 +95,11 @@ Figure* Board::getFigureAt(Coords pos)
 list<Figure *> Board::getAllFiguresByTeam(Team t)
 {
     list<Figure*> list;
-    for(int x = 0; x < 7; x++){
-        for(int y = 0; y < 7; y++){
-            if(getFigureAt(FieldsCoordinates(x), y) != nullptr && getFigureAt(FieldsCoordinates(x), y)->getTeam() == t) list.push_back(getFigureAt(FieldsCoordinates(x), y));
+    for(int x = 0; x < 8; x++){
+        for(int y = 0; y < 8; y++){
+            if(getFigureAt(FieldsCoordinates(x), y) != nullptr
+                    && getFigureAt(FieldsCoordinates(x), y)->getTeam() == t)
+                list.push_back(getFigureAt(FieldsCoordinates(x), y));
         }
     }
     return list;
@@ -296,7 +298,13 @@ void Board::setFigureAt(FieldsCoordinates fc, int fc2, Figure *fig)
 void Board::display()
 {
     //vector<string> toDisplay;
-    for(int x = 0; x < 8; x++){
+    cout << "  ";
+    for(int y = 0; y < 8; y++){
+        cout << FCNames[y];
+    }
+    cout << "\n";
+    for(int x = 7; x > -1; x--){
+        cout << x+1 << " ";
         for(int y = 0; y < 8; y++){
             if(fields[y][x]->getFigure() == nullptr){
                 cout << "[]";

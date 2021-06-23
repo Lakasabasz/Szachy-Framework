@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Framework LANGUAGES CXX)
+project(Framework LANGUAGES CXX VERSION 0.1)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
-add_executable(Framework main.cpp
+add_library(Framework
     figure.cpp figure.h
     field.cpp field.h
     board.cpp board.h
@@ -21,3 +20,8 @@ add_executable(Framework main.cpp
     exceptions/usagewrongmovementexception.cpp exceptions/usagewrongmovementexception.h
     enums.h
 )
+
+add_executable(Test-main test_main.cpp)
+add_executable(Test-unit test_unit.cpp)
+
+target_link_libraries(Test-main PRIVATE Framework)
