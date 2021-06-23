@@ -17,7 +17,7 @@ list <Field*> Horse::getFieldsToEnemyKing(Coords myPos, Board *board, bool withM
     return ret;
 }
 
-list <Field*> Horse::getPossibleMovements(Coords myPos, Board *board, bool protecting){
+list <Field*> Horse::getPossibleMovements(Coords myPos, Board *board, bool protecting, bool excludeImpossible){
     list<Field*> possibleMovements;
     pair<int, int> deltaCoords[] = {
         make_pair(-1, -2),

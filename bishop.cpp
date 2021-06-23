@@ -59,7 +59,7 @@ std::list<Field*> Bishop::getFieldsToEnemyKing(Coords myPos, Board *board, bool 
     return ret;
 }
 
-std::list<Field*> Bishop::getPossibleMovements(Coords myPos, Board *board, bool protecting){
+std::list<Field*> Bishop::getPossibleMovements(Coords myPos, Board *board, bool protecting, bool excludeImpossible){
     // y=ax+b
     list<Field*> ret;
     // kierunek przeciwny i w dół
