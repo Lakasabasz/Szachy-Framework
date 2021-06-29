@@ -11,7 +11,7 @@ Field::Field(Color c, Figure* f){
 }
 
 Field::~Field(){
-    delete this->f;
+    delete f;
 }
 
 Figure* Field::getFigure() const{

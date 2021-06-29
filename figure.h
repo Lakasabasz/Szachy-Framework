@@ -20,7 +20,7 @@ public:
 
     virtual list<Field*> getPossibleMovements(Coords myPos, Board* board, bool protecting = false, bool excludeImpossible = true) = 0;
     virtual list<Field*> getFieldsToEnemyKing(Coords myPos, Board* board, bool withMe = false, bool ignoreOneEnemy = false) = 0;
-    list<Field*> commonPart(const list<Field*> a, const list<Field*> b);
+    virtual list<Field*> commonPart(const list<Field*> a, const list<Field*> b);
     virtual void onMoveEvent();
 
     virtual Team getTeam() const;

@@ -10,7 +10,7 @@ list <Field*> Horse::getFieldsToEnemyKing(Coords myPos, Board *board, bool withM
     list<Field*> ret;
     if(!withMe) return ret;
 
-    auto movementsToTest = getPossibleMovements(myPos, board);
+    auto movementsToTest = getPossibleMovements(myPos, board, false, false);
     if(board->contains(movementsToTest, board->getField(board->getKingPosition(getTeam()==Team::T_BLACK?Team::T_WHITE:Team::T_BLACK)))){
         ret.push_back(board->getField(myPos));
     }
@@ -37,7 +37,7 @@ list <Field*> Horse::getPossibleMovements(Coords myPos, Board *board, bool prote
               || protecting) possibleMovements.push_back(board->getField(FieldsCoordinates(myPos.first+i.first), myPos.second+i.second));
         }
     }
-    possibleMovements = excludeImpossibleMovements(possibleMovements, board, myPos);
+    if(excludeImpossible) possibleMovements = excludeImpossibleMovements(possibleMovements, board, myPos);
 
     return possibleMovements;
 

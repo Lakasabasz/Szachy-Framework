@@ -10,8 +10,8 @@ std::string King::getSymbol() const{
     return std::string(1, static_cast<char>(226));
 }
 
-list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protecting){
-    //TODO ruchy zwykłe
+list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protecting, bool excludeImpossible){
+    //Ruchy zwykłe
     list<Field*> ret;
     for(int x = myPos.first-1; x<myPos.first+2; x++){
         if(x < 0 || x > 7) continue;
@@ -20,7 +20,7 @@ list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protect
             if(x == myPos.first && y == myPos.second) continue;
             Coords test(FieldsCoordinates(x), y);
             if((board->getFigureAt(test) != nullptr && board->getFigureAt(test)->getTeam() == getTeam()) || protecting) continue;
-            if(board->canEnemyMoveOnField(getTeam(), test)) continue;
+            if(board->canEnemyMoveOnField(getTeam(), test)) continue; // BUG pętla króli
             ret.push_back(board->getField(test));
         }
     }

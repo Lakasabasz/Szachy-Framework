@@ -15,7 +15,7 @@ list<Field*> Queen::getFieldsToEnemyKing(Coords myPos, Board *board, bool withMe
     return ret;
 }
 
-list<Field*> Queen::getPossibleMovements(Coords myPos, Board *board, bool protectingbool excludeImpossible){
+list<Field*> Queen::getPossibleMovements(Coords myPos, Board *board, bool protecting, bool excludeImpossible){
     auto ret = tNature.getPossibleMovements(myPos, board, protecting);
     auto bishop = bNature.getPossibleMovements(myPos, board, protecting);
     ret.merge(bishop);

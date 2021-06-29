@@ -17,6 +17,8 @@ private:
      * [0] ruch pionka (1 tak, 0 nie)
      * [1] zbicie figury (1 tak, 0 nie)
      */
+    const uint8_t PAWNS = 0;
+    const uint8_t KILLS = 1;
     std::deque<std::bitset<2>> recorded;
 public:
     History();
