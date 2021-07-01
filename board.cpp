@@ -254,7 +254,7 @@ bool Board::canEnemyMoveOnField(Team myTeam, Coords testing)
         figuresList = getAllFiguresByTeam(T_WHITE);
     }
     for(auto fig : figuresList){
-        auto possMov = fig->getPossibleMovements(getFigureCoords(fig), this);
+        auto possMov = fig->getPossibleMovements(getFigureCoords(fig), this, false, false);
         if(contains(possMov, getField(testing))) return true;
     }
     return false;

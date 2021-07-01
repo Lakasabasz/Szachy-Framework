@@ -20,7 +20,7 @@ list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protect
             if(x == myPos.first && y == myPos.second) continue;
             Coords test(FieldsCoordinates(x), y);
             if((board->getFigureAt(test) != nullptr && board->getFigureAt(test)->getTeam() == getTeam()) || protecting) continue;
-            if(board->canEnemyMoveOnField(getTeam(), test)) continue; // BUG pętla króli
+            if(!excludeImpossible || board->canEnemyMoveOnField(getTeam(), test)) continue; // BUG pętla króli
             ret.push_back(board->getField(test));
         }
     }
