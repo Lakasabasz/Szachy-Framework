@@ -16,7 +16,7 @@ list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protect
     for(int x = myPos.first-1; x<myPos.first+2; x++){
         if(x < 0 || x > 7) continue;
         for(int y = myPos.second-1; y<myPos.second+2; y++){
-            if(x < 0 || x > 7) continue;
+            if(x < 0 || x > 7 || y > 7 || y < 0) continue;
             if(x == myPos.first && y == myPos.second) continue;
             Coords test(FieldsCoordinates(x), y);
             if((board->getFigureAt(test) != nullptr && board->getFigureAt(test)->getTeam() == getTeam()) || protecting) continue;

@@ -86,7 +86,7 @@ Figure *Board::getFigureAt(FieldsCoordinates fc, int fc2)
 
 Figure* Board::getFigureAt(Coords pos)
 {
-    if(pos.second < 0){
+    if(pos.second < 0 || pos.second > 7){
         throw CoordsOutOfBoardException();
     }
     return this->fields[pos.first][pos.second]->getFigure();
