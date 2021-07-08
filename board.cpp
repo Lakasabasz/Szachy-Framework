@@ -141,10 +141,21 @@ Coords Board::getFigureCoords(Figure *fig)
     int x, y;
     for(x = 0; x < 7; x++){
         for(y = 0; y < 7; y++){
-            if(getFigureAt(FieldsCoordinates(x), y) == fig) break;
+            if(getFigureAt(FieldsCoordinates(x), y) == fig) return Coords(FieldsCoordinates(x), y);;
         }
     }
-    return Coords(FieldsCoordinates(x), y);
+    return WRONG_COORDS;
+}
+
+Coords Board::getFieldCoords(Field *field)
+{
+    int x, y;
+    for(x = 0; x < 7; x++){
+        for(y = 0; y < 7; y++){
+            if(getField(FieldsCoordinates(x), y) == field) return Coords(FieldsCoordinates(x), y);
+        }
+    }
+    return WRONG_COORDS;
 }
 
 Movement Board::getLastMovement()

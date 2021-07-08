@@ -36,6 +36,7 @@ public:
     Coords getKingPosition(Team t);
     Coords getFirstAttackerPosition(Team attackerTeam);
     Coords getFigureCoords(Figure* fig);
+    Coords getFieldCoords(Field* field);
 
     Movement getLastMovement();
 
