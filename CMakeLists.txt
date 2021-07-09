@@ -25,3 +25,4 @@ add_executable(Test-main test_main.cpp)
 add_executable(Test-unit test_unit.cpp)
 
 target_link_libraries(Test-main PRIVATE Framework)
+target_link_libraries(Test-unit PRIVATE Framework)

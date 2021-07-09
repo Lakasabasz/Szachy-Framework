@@ -139,8 +139,8 @@ Coords Board::getFirstAttackerPosition(Team attackerTeam)
 Coords Board::getFigureCoords(Figure *fig)
 {
     int x, y;
-    for(x = 0; x < 7; x++){
-        for(y = 0; y < 7; y++){
+    for(x = 0; x < 8; x++){
+        for(y = 0; y < 8; y++){
             if(getFigureAt(FieldsCoordinates(x), y) == fig) return Coords(FieldsCoordinates(x), y);;
         }
     }
@@ -150,8 +150,8 @@ Coords Board::getFigureCoords(Figure *fig)
 Coords Board::getFieldCoords(Field *field)
 {
     int x, y;
-    for(x = 0; x < 7; x++){
-        for(y = 0; y < 7; y++){
+    for(x = 0; x < 8; x++){
+        for(y = 0; y < 8; y++){
             if(getField(FieldsCoordinates(x), y) == field) return Coords(FieldsCoordinates(x), y);
         }
     }
@@ -276,6 +276,13 @@ bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
     return canEnemyMoveOnField(myTeam, Coords(x, y));
 }
 
+
+/**
+ * @brief Board::moveFigureFromTo
+ * @param where Litera, Liczba 1-8
+ * @param to Litera, Liczba 1-8
+ * @return
+ */
 bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to)
 {
 #warning "Sprawdzic zachowanie dla zbicia i rozszady"

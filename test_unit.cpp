@@ -1,16 +1,17 @@
-#include <utility>
 #include <list>
+#include <iostream>
+
+#include "board.h"
+#include "figure.h"
 
 using namespace std;
 
 int main(){
-    list<pair<int, int>> deltaCoords;
-    deltaCoords.push_back(make_pair(-1, -2));
-    deltaCoords.push_back(make_pair(-2, -1));
-    deltaCoords.push_back(make_pair(1, -2));
-    deltaCoords.push_back(make_pair(2, -1));
-    deltaCoords.push_back(make_pair(-1, 2));
-    deltaCoords.push_back(make_pair(-2, 1));
-    deltaCoords.push_back(make_pair(1, 2));
-    deltaCoords.push_back(make_pair(2, 1));
+    Board b(true);
+    b.display();
+    auto lista = b.getFigureAt(G, 0)->getPossibleMovements(Coords(G, 0), &b);
+    list<Coords> konwersja;
+    for(auto f : lista){
+        if(b.getFieldCoords(f) == WRONG_COORDS) cout << "DUPA";
+    }
 }
