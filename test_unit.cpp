@@ -8,10 +8,9 @@ using namespace std;
 
 int main(){
     Board b(true);
+    b.moveFigureFromTo(Coords(G, 1), Coords(F, 3));
+    MovementErrorCode mec;
+    b.moveFigureFromTo(Coords(F, 3), Coords(E, 5), mec);
     b.display();
-    auto lista = b.getFigureAt(G, 0)->getPossibleMovements(Coords(G, 0), &b);
-    list<Coords> konwersja;
-    for(auto f : lista){
-        if(b.getFieldCoords(f) == WRONG_COORDS) cout << "DUPA";
-    }
+    cout << (mec == MEC_GAMEDONE?"Koniec gry":"Co innego");
 }

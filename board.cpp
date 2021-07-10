@@ -87,6 +87,7 @@ Figure *Board::getFigureAt(FieldsCoordinates fc, int fc2)
 Figure* Board::getFigureAt(Coords pos)
 {
     if(pos.second < 0 || pos.second > 7){
+        //cout << pos.first << pos.second << endl;
         throw CoordsOutOfBoardException();
     }
     return this->fields[pos.first][pos.second]->getFigure();
@@ -141,7 +142,7 @@ Coords Board::getFigureCoords(Figure *fig)
     int x, y;
     for(x = 0; x < 8; x++){
         for(y = 0; y < 8; y++){
-            if(getFigureAt(FieldsCoordinates(x), y) == fig) return Coords(FieldsCoordinates(x), y);;
+            if(getFigureAt(FieldsCoordinates(x), y) == fig) return Coords(FieldsCoordinates(x), y);
         }
     }
     return WRONG_COORDS;
@@ -217,7 +218,7 @@ bool Board::testForEndGame()
     if(end && (goniec > 1 || horse > 1 || (goniec == 1 && horse == 1))) return true;
 
     // Test 50 ruchów bez ruchu pionkiem ani zbicia jakiejś figury
-    if(history.getPawnMovesInMovesBack(50) == 0 && history.getFiguresDeadInMovesBack(50) == 0) return true;
+    if(history.getPawnMovesInMovesBack(50) == 0 && history.getFiguresDeadInMovesBack(50) == 0 && history.movesDone() >= 50) return true;
     return false;
 }
 
@@ -265,6 +266,8 @@ bool Board::canEnemyMoveOnField(Team myTeam, Coords testing)
         figuresList = getAllFiguresByTeam(T_WHITE);
     }
     for(auto fig : figuresList){
+        //cout << " 4 ";
+        //if(dynamic_cast<Pawn*>(fig) != nullptr) cout << "P\n";
         auto possMov = fig->getPossibleMovements(getFigureCoords(fig), this, false, false);
         if(contains(possMov, getField(testing))) return true;
     }
@@ -283,15 +286,19 @@ bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
  * @param to Litera, Liczba 1-8
  * @return
  */
-bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to)
+bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to, MovementErrorCode& erc)
 {
 #warning "Sprawdzic zachowanie dla zbicia i rozszady"
-    if(testForEndGame()) return false;
+    if(testForEndGame()) {
+        erc = MEC_GAMEDONE;
+        return false;
+    }
 
     where.second = where.second-1;
     to.second = to.second - 1;
     Figure* f = getFigureAt(where);
     if(f == nullptr){
+        erc = MEC_EMPTYWHERE;
         return false;
     }
 
@@ -303,9 +310,17 @@ bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoor
         setFigureAt(to.first, to.second, f);
         f->onMoveEvent();
         history.add(Movement(where, to), f, dead);
+        erc = MEC_SUCCESS;
         return true;
     }
+    erc = MEC_IMPOSSIBLE;
     return false;
+}
+
+bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to)
+{
+    MovementErrorCode errorCode;
+    return moveFigureFromTo(where, to, errorCode);
 }
 
 void Board::setFigureAt(FieldsCoordinates fc, int fc2, Figure *fig)

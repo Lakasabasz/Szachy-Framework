@@ -21,6 +21,7 @@ list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board, bool protect
     if(next.second == 8 || next.second == -1) return possibleMovements;
 
     if(board->getFigureAt(next) == nullptr) possibleMovements.push_back(board->getField(next));
+    //cout << "   A\n";
 
     // Ruch o 2
     if(myPos.second == 1 && getTeam() == Team::T_WHITE) {
@@ -112,9 +113,9 @@ list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board, bool protect
             }
         }
     }
-
+    //cout << "  eA\n";
     possibleMovements = excludeImpossibleMovements(possibleMovements, board, myPos);
-
+    //cout << " eeA\n";
     return possibleMovements;
 }
 

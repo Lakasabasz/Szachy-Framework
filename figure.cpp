@@ -2,6 +2,7 @@
 
 list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements, Board* board, Coords myPos)
 {
+    //cout << "   B\n";
     Coords pinningFigure = Coords(FieldsCoordinates::A, -1);
     Coords myKingPos = board->getKingPosition(getTeam());
     // Test dla ataku prostego
@@ -64,15 +65,18 @@ list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements
             }
         }
     } else if(abs(static_cast<int>(myPos.first) - static_cast<int>(myKingPos.first)) == abs(myPos.second - myKingPos.second)){ // Test dla ataku skośnego
+        //
         int x = myPos.first - myKingPos.first;
         int y = myPos.second - myKingPos.second;
         int a = 0;
         if(x*y > 0) a = 1;
         else if(x*y < 0) a = -1;
-        int b = myPos.second - myPos.first;
+        int b = myPos.second - (a*myPos.first);
         if(x > 0){
             for(int i = myPos.first+1; i<8; i++){
                 Coords testPoint(FieldsCoordinates(i), (a*i)+b);
+                //cout << testPoint.first << testPoint.second << "eB\taib" << a << " " << i << " " << b << "\n";
+                //cout << "K: " << FCNames[myKingPos.first] << myKingPos.second << "\t" << "F: " << FCNames[myPos.first] << myPos.second << "\n";
                 Figure* tested = board->getFigureAt(testPoint);
                 if(tested == nullptr) continue;
                 else if(tested->getTeam() == getTeam()) break;
@@ -119,6 +123,7 @@ list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements
             possibleMovements = commonPart(lineToOwnKing, possibleMovements);
         } else possibleMovements.clear();
     }
+    //cout << " eeB\n";
     return possibleMovements;
 }
 

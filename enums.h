@@ -24,6 +24,13 @@ enum Team{
     T_WHITE
 };
 
+enum MovementErrorCode{
+    MEC_SUCCESS,
+    MEC_GAMEDONE,
+    MEC_EMPTYWHERE,
+    MEC_IMPOSSIBLE
+};
+
 typedef std::pair<FieldsCoordinates, int> Coords;
 typedef std::pair<Coords, Coords> Movement;
 

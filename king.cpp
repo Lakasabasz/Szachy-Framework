@@ -25,14 +25,17 @@ list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protect
         }
     }
     //TODO rozszada
-    if(this->moved || board->isKingChecked(getTeam())) return ret;
+    if(this->moved || board->isKingChecked(getTeam()) || !excludeImpossible) return ret;
     if(getTeam() == T_WHITE){
+        //cout << "1a\n";
         Coords lewa = Coords(FieldsCoordinates::A, 0);
         if(board->getFigureAt(lewa) != nullptr &&
                 dynamic_cast<Tower*>(board->getFigureAt(lewa)) != nullptr &&
                 !dynamic_cast<Tower*>(board->getFigureAt(lewa))->wasMoved()){
+            //cout << "2a\n";
             if(!(board->canEnemyMoveOnField(getTeam(), FieldsCoordinates::D, 0) ||
                     board->canEnemyMoveOnField(getTeam(), FieldsCoordinates::C, 0))){
+                //cout << "3a\n";
                 if(board->getFigureAt(FieldsCoordinates::B, 0) == board->getFigureAt(FieldsCoordinates::C, 0) &&
                         board->getFigureAt(FieldsCoordinates::D, 0) == nullptr) ret.push_back(board->getField(FieldsCoordinates::C, 0));
             }
@@ -48,6 +51,7 @@ list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protect
             }
         }
     } else{
+        //cout << "1b\n";
         Coords lewa = Coords(FieldsCoordinates::A, 7);
         if(board->getFigureAt(lewa) != nullptr &&
                 dynamic_cast<Tower*>(board->getFigureAt(lewa)) != nullptr &&
@@ -69,6 +73,7 @@ list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protect
             }
         }
     }
+    //cout << "e1\n";
     return ret;
 }
 
