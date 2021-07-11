@@ -116,12 +116,23 @@ list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements
     }
     // Po tym etapie wiemy, jakie mamy ruchy będąc przypiętymi lub nie
     if(board->isKingChecked(getTeam())){
+        Coords checkingFigurePosition = board->getFirstAttackerPosition(getTeam()==T_WHITE?T_BLACK:T_WHITE);
         if(board->isPossibleToCoverKing(getTeam())){
-            Coords checkingFigurePosition = board->getFirstAttackerPosition(getTeam()==T_WHITE?T_BLACK:T_WHITE);
             auto lineToOwnKing = board->getFigureAt(checkingFigurePosition)->getFieldsToEnemyKing(checkingFigurePosition, board, true);
             // Porównanie lineToOwnKing z possibleMovements
             possibleMovements = commonPart(lineToOwnKing, possibleMovements);
-        } else possibleMovements.clear();
+        } else {
+            auto checkingFigureField = board->getField(checkingFigurePosition);
+            bool found = false;
+            for(auto possField : possibleMovements){
+                if(possField == checkingFigureField) {
+                    found = true;
+                    break;
+                }
+            }
+            possibleMovements.clear();
+            if(found) possibleMovements.push_back(checkingFigureField);
+        }
     }
     //cout << " eeB\n";
     return possibleMovements;

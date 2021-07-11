@@ -95,6 +95,6 @@ std::list<Field*> Bishop::getPossibleMovements(Coords myPos, Board *board, bool 
         } else break;
     }
 
-    ret = excludeImpossibleMovements(ret, board, myPos);
+    ret = excludeImpossibleMovements(ret, board, myPos); //FIXME
     return ret;
 }

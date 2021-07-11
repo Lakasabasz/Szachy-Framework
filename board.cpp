@@ -121,11 +121,7 @@ Coords Board::getKingPosition(Team t)
 Coords Board::getFirstAttackerPosition(Team attackerTeam)
 {
     list<Figure*> figuresList;
-    if(attackerTeam == T_WHITE){
-        figuresList = getAllFiguresByTeam(T_BLACK);
-    } else{
-        figuresList = getAllFiguresByTeam(T_WHITE);
-    }
+    figuresList = getAllFiguresByTeam(attackerTeam);
     Figure* first = nullptr;
     for(auto fig : figuresList){
         auto fielToEnem = fig->getFieldsToEnemyKing(getFigureCoords(fig), this, true);
@@ -180,7 +176,7 @@ bool Board::testForEndGame()
     // Test mata i pata
     bool end = true;
     auto figures = getAllFiguresByTeam(move);
-    for(auto fig : figures){
+    for(auto fig : figures){ // FIXME
         if(fig->getPossibleMovements(getFigureCoords(fig), this).size() != 0){
             end = false;
             break;
@@ -278,7 +274,6 @@ bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
 {
     return canEnemyMoveOnField(myTeam, Coords(x, y));
 }
-
 
 /**
  * @brief Board::moveFigureFromTo
