@@ -283,7 +283,6 @@ bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
  */
 bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to, MovementErrorCode& erc)
 {
-#warning "Sprawdzic zachowanie dla zbicia i rozszady"
     if(testForEndGame()) {
         erc = MEC_GAMEDONE;
         return false;
@@ -300,6 +299,19 @@ bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoor
     list<Field*> possibleMovements = f->getPossibleMovements(where, this);
     Field* target = getField(to);
     if(contains(possibleMovements, target)){
+        if(dynamic_cast<King*>(f) != nullptr && target == getField(Coords(G, 1))){
+            setFigureAt(F, 1, getFigureAt(Coords(H, 1)));
+            setFigureAt(H, 1, nullptr);
+        } else if(dynamic_cast<King*>(f) != nullptr && target == getField(Coords(C, 1))){
+            setFigureAt(D, 1, getFigureAt(Coords(A, 1)));
+            setFigureAt(A, 1, nullptr);
+        } else if(dynamic_cast<King*>(f) != nullptr && target == getField(Coords(G, 8))){
+            setFigureAt(F, 8, getFigureAt(Coords(H, 8)));
+            setFigureAt(H, 8, nullptr);
+        } else if(dynamic_cast<King*>(f) != nullptr && target == getField(Coords(C, 8))){
+            setFigureAt(D, 8, getFigureAt(Coords(A, 8)));
+            setFigureAt(A, 8, nullptr);
+        }
         bool dead = killFigure(getFigureAt(where.first, where.second));
         setFigureAt(where.first, where.second, nullptr);
         setFigureAt(to.first, to.second, f);
