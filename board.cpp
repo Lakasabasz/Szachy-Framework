@@ -275,6 +275,11 @@ bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
     return canEnemyMoveOnField(myTeam, Coords(x, y));
 }
 
+string Board::getVersion()
+{
+    return "v1.0.0 beta";
+}
+
 /**
  * @brief Board::moveFigureFromTo
  * @param where Litera, Liczba 1-8

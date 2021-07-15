@@ -57,6 +57,8 @@ public:
     bool isPossibleToCoverKing(Team t);
     bool canEnemyMoveOnField(Team myTeam, Coords testing);
     bool canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y);
+
+    static std::string getVersion();
 };
 
 #endif // BOARD_H
