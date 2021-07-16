@@ -79,11 +79,22 @@ Field *Board::getField(Coords pos)
     return this->fields[pos.first][pos.second];
 }
 
+/**
+ * @brief Board::getFigureAt
+ * @param fc A-H
+ * @param fc2 0-7
+ * @return
+ */
 Figure *Board::getFigureAt(FieldsCoordinates fc, int fc2)
 {
     return this->fields[fc][fc2]->getFigure();
 }
 
+/**
+ * @brief Board::getFigureAt
+ * @param pos 0-7
+ * @return
+ */
 Figure* Board::getFigureAt(Coords pos)
 {
     if(pos.second < 0 || pos.second > 7){
@@ -118,6 +129,11 @@ Coords Board::getKingPosition(Team t)
     return Coords(FieldsCoordinates::A, -1);
 }
 
+/**
+ * @brief Board::getFirstAttackerPosition
+ * @param attackerTeam
+ * @return A-H, 0-7
+ */
 Coords Board::getFirstAttackerPosition(Team attackerTeam)
 {
     list<Figure*> figuresList;

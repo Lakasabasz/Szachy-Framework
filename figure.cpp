@@ -73,10 +73,8 @@ list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements
         else if(x*y < 0) a = -1;
         int b = myPos.second - (a*myPos.first);
         if(x > 0){
-            for(int i = myPos.first+1; i<8; i++){
+            for(int i = myPos.first+1; i<8 && (-1 < (a*i)+b && (a*i)+b < 8); i++){
                 Coords testPoint(FieldsCoordinates(i), (a*i)+b);
-                //cout << testPoint.first << testPoint.second << "eB\taib" << a << " " << i << " " << b << "\n";
-                //cout << "K: " << FCNames[myKingPos.first] << myKingPos.second << "\t" << "F: " << FCNames[myPos.first] << myPos.second << "\n";
                 Figure* tested = board->getFigureAt(testPoint);
                 if(tested == nullptr) continue;
                 else if(tested->getTeam() == getTeam()) break;
@@ -89,8 +87,7 @@ list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements
                 }
             }
         } else if(x < 0){
-            for(int i = myPos.first-1; i>-1; i--){
-                if(a*i+b < 0) continue;
+            for(int i = myPos.first-1; i>-1 && (-1 < (a*i)+b && (a*i)+b < 8); i--){
                 Coords testPoint(FieldsCoordinates(i), (a*i)+b);
                 Figure* tested = board->getFigureAt(testPoint);
                 if(tested == nullptr) continue;
@@ -120,6 +117,16 @@ list<Field *> Figure::excludeImpossibleMovements(list<Field *> possibleMovements
         if(board->isPossibleToCoverKing(getTeam())){
             auto lineToOwnKing = board->getFigureAt(checkingFigurePosition)->getFieldsToEnemyKing(checkingFigurePosition, board, true);
             // Porównanie lineToOwnKing z possibleMovements
+            //DEBUG
+            list<Coords> ltok;
+            for(auto e : lineToOwnKing){
+                ltok.push_back(board->getFieldCoords(e));
+            }
+            list<Coords> pm;
+            for(auto e : possibleMovements){
+                pm.push_back(board->getFieldCoords(e));
+            }
+            //DEBUG end
             possibleMovements = commonPart(lineToOwnKing, possibleMovements);
         } else {
             auto checkingFigureField = board->getField(checkingFigurePosition);

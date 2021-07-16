@@ -23,7 +23,7 @@ std::list<Field*> Bishop::getFieldsToEnemyKing(Coords myPos, Board *board, bool 
 
     // y=ax+b
     int a = (myPos.second-enemyKingPosition.second)/(myPos.first-enemyKingPosition.first);
-    int b = myPos.second-a*enemyKingPosition.first;
+    int b = myPos.second-a*myPos.first;
     bool directionNormal = myPos.first < enemyKingPosition.first;
 
     //NOTE zmienić warunek pętli na prywatną metodę loopCondition(bool) i wywalić podwójny kod

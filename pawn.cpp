@@ -113,9 +113,7 @@ list<Field*> Pawn::getPossibleMovements(Coords myPos, Board* board, bool protect
             }
         }
     }
-    //cout << "  eA\n";
     possibleMovements = excludeImpossibleMovements(possibleMovements, board, myPos);
-    //cout << " eeA\n";
     return possibleMovements;
 }
 
