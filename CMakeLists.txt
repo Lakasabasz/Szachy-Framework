@@ -24,9 +24,9 @@ add_library(Framework
 add_executable(Test-main test_main.cpp)
 add_executable(Test-unit test_unit.cpp)
 add_executable(Test-iss3 unit_tests/iss3.cpp)
-add_executable(Test-iss4 unit_tests/iss3.cpp)
+add_executable(Test-iss6 unit_tests/iss6.cpp)
 
 target_link_libraries(Test-main PRIVATE Framework)
 target_link_libraries(Test-unit PRIVATE Framework)
 target_link_libraries(Test-iss3 PRIVATE Framework)
-target_link_libraries(Test-iss4 PRIVATE Framework)
+target_link_libraries(Test-iss6 PRIVATE Framework)

@@ -74,6 +74,11 @@ Field *Board::getField(FieldsCoordinates fc, int fc2)
     return this->fields[fc][fc2];
 }
 
+/**
+ * @brief Board::getField
+ * @param pos A-H, 0-7
+ * @return
+ */
 Field *Board::getField(Coords pos)
 {
     return this->fields[pos.first][pos.second];
@@ -320,18 +325,18 @@ bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoor
     list<Field*> possibleMovements = f->getPossibleMovements(where, this);
     Field* target = getField(to);
     if(contains(possibleMovements, target)){
-        if(dynamic_cast<King*>(f) != nullptr && target == getField(Coords(G, 1))){
-            setFigureAt(F, 1, getFigureAt(Coords(H, 1)));
-            setFigureAt(H, 1, nullptr);
-        } else if(dynamic_cast<King*>(f) != nullptr && target == getField(Coords(C, 1))){
-            setFigureAt(D, 1, getFigureAt(Coords(A, 1)));
-            setFigureAt(A, 1, nullptr);
-        } else if(dynamic_cast<King*>(f) != nullptr && target == getField(Coords(G, 8))){
-            setFigureAt(F, 8, getFigureAt(Coords(H, 8)));
-            setFigureAt(H, 8, nullptr);
-        } else if(dynamic_cast<King*>(f) != nullptr && target == getField(Coords(C, 8))){
-            setFigureAt(D, 8, getFigureAt(Coords(A, 8)));
-            setFigureAt(A, 8, nullptr);
+        if(dynamic_cast<King*>(f) != nullptr && to == Coords(G, 0)){
+            setFigureAt(F, 0, getFigureAt(Coords(H, 0)));
+            setFigureAt(H, 0, nullptr);
+        } else if(dynamic_cast<King*>(f) != nullptr && to == Coords(C, 0)){
+            setFigureAt(D, 0, getFigureAt(Coords(A, 0)));
+            setFigureAt(A, 0, nullptr);
+        } else if(dynamic_cast<King*>(f) != nullptr && to == Coords(G, 7)){
+            setFigureAt(F, 7, getFigureAt(Coords(H, 7)));
+            setFigureAt(H, 7, nullptr);
+        } else if(dynamic_cast<King*>(f) != nullptr && to == Coords(C, 7)){
+            setFigureAt(D, 7, getFigureAt(Coords(A, 7)));
+            setFigureAt(A, 7, nullptr);
         }
         bool dead = killFigure(getFigureAt(where.first, where.second));
         setFigureAt(where.first, where.second, nullptr);
@@ -351,6 +356,12 @@ bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoor
     return moveFigureFromTo(where, to, errorCode);
 }
 
+/**
+ * @brief Board::setFigureAt
+ * @param fc A-H
+ * @param fc2 0-7
+ * @param fig
+ */
 void Board::setFigureAt(FieldsCoordinates fc, int fc2, Figure *fig)
 {
     fields[fc][fc2]->setFigure(fig);

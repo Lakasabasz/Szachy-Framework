@@ -3,7 +3,7 @@
 
 King::King(Team t) : Figure(t)
 {
-
+    moved = false;
 }
 
 std::string King::getSymbol() const{
@@ -79,4 +79,9 @@ list<Field*> King::getPossibleMovements(Coords myPos, Board *board, bool protect
 
 list<Field*> King::getFieldsToEnemyKing(Coords, Board*, bool, bool){
     return list<Field*>();
+}
+
+void King::onMoveEvent()
+{
+    moved = true;
 }
