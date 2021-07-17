@@ -298,7 +298,7 @@ bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
 
 string Board::getVersion()
 {
-    return "v1.0.1 beta";
+    return "v1.0.2 beta";
 }
 
 /**
