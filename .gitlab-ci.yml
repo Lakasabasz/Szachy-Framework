@@ -32,5 +32,5 @@ build:
 test:
   stage: test
   script:
-    - chmod +x runmytest.sh
+    - chmod +x ./runmytest.sh
     - ./runmytests.sh
