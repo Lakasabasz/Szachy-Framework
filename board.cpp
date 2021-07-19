@@ -22,10 +22,6 @@ bool Board::killFigure(Figure *f)
     return true;
 }
 
-/**
- * @brief Konstruktor główny
- * @param defaultPositions przyjmuje wartość true lub false. Dla true na szachownicy są ustawiane figury zgodnie z zasadami szachowymi. Dla false plansza jest pusta
- */
 Board::Board(bool defaultPositions){
     for(int a = 0; a < 8; a++){
         for(int i = 0; i < 8; i++){
@@ -64,9 +60,6 @@ Board::Board(bool defaultPositions){
     }
 }
 
-/**
- * @brief Destruktor kasujący wszystkie pola
- */
 Board::~Board()
 {
     for(int i = 0; i<8; i++){
@@ -76,14 +69,6 @@ Board::~Board()
     }
 }
 
-/**
- * @brief Board::getField
- * @see Board::getField(Coords pos)
- * @param fc przyjmuje wartość FieldsCoordinates
- * @param fc2 przyjmuje wartość liczbową w zakresie <0; 7>
- * @return wskaźnik na obiekt Field
- * @throw CoordsOutOfBoardException jeśli fc2 nie należy do przedziału <0; 7>
- */
 Field *Board::getField(FieldsCoordinates fc, int fc2)
 {
     if(fc2 < 0 || fc2 > 7){
@@ -92,12 +77,6 @@ Field *Board::getField(FieldsCoordinates fc, int fc2)
     return this->fields[fc][fc2];
 }
 
-/**
- * @brief Selektor wskaźnika Field* na podstawie koordynatów
- * @param pos przyjmuje instancję Coords w zakresie liczbowym <0; 7>
- * @return wskaźnik na obiekt Field
- * @throw CoordsOutOfBoardException jeśli pos.second nie należy do przedziału <0; 7>
- */
 Field* Board::getField(Coords pos)
 {
     if(pos.second < 0 || pos.second > 7){
@@ -106,13 +85,6 @@ Field* Board::getField(Coords pos)
     return this->fields[pos.first][pos.second];
 }
 
-/**
- * @brief Selektor wskaźnika Figure* na podstawie koordynatów
- * @param fc przyjmuje wartość FieldsCoordinates
- * @param fc2 przyjmuje wartość liczbową w zakresie <0; 7>
- * @return wskaźnik na obiekt Figure lub nullptr jeśli pole jest puste
- * @throw CoordsOutOfBoardException jeśli fc2 nie należy do przedziału <0; 7>
- */
 Figure *Board::getFigureAt(FieldsCoordinates fc, int fc2)
 {
     if(fc2 < 0 || fc2 > 7){
@@ -121,12 +93,6 @@ Figure *Board::getFigureAt(FieldsCoordinates fc, int fc2)
     return this->fields[fc][fc2]->getFigure();
 }
 
-/**
- * @brief Selektor wskaźnika Figure* na podstawie koordynatów
- * @param pos przyjmuje instancję Coords w zakresie liczbowym <0; 7>
- * @return wskaźnik na obiekt Field
- * @throw CoordsOutOfBoardException jeśli pos.second nie należy do przedziału <0; 7>
- */
 Figure* Board::getFigureAt(Coords pos)
 {
     if(pos.second < 0 || pos.second > 7){
@@ -135,11 +101,6 @@ Figure* Board::getFigureAt(Coords pos)
     return this->fields[pos.first][pos.second]->getFigure();
 }
 
-/**
- * @brief Lista wszystkich figur na podstawie koloru
- * @param t Team
- * @return Lista wskaźników na Figure
- */
 list<Figure *> Board::getAllFiguresByTeam(Team t)
 {
     list<Figure*> list;
@@ -153,11 +114,6 @@ list<Figure *> Board::getAllFiguresByTeam(Team t)
     return list;
 }
 
-/**
- * @brief Pozycja króla konkretnego koloru
- * @param t Team
- * @return Koordynaty króla w zależności od teamu lub WRONG_COORDS jeśli nie został znaleziony
- */
 Coords Board::getKingPosition(Team t)
 {
     for(int x = 0; x < 8; x++){
@@ -170,11 +126,6 @@ Coords Board::getKingPosition(Team t)
     return WRONG_COORDS;
 }
 
-/**
- * @brief Koordynaty pierwszej znalezionej figury szachującej króla
- * @param attackerTeam wskazuje na kolor przeciwny do atakowanego króla. Jeśli szukamy pierwszego atakującego króla białego attackerTeam ustawiamy T_BLACK
- * @return Coords pierwszego atakującego
- */
 Coords Board::getFirstAttackerPosition(Team attackerTeam)
 {
     list<Figure*> figuresList;
@@ -334,15 +285,9 @@ bool Board::canEnemyMoveOnField(Team myTeam, FieldsCoordinates x, int y)
 
 string Board::getVersion()
 {
-    return "v1.0.2 beta";
+    return "v1.0.3 beta";
 }
 
-/**
- * @brief Board::moveFigureFromTo
- * @param where Litera, Liczba 1-8
- * @param to Litera, Liczba 1-8
- * @return
- */
 bool Board::moveFigureFromTo(pair<FieldsCoordinates, int> where, pair<FieldsCoordinates, int> to, MovementErrorCode& erc)
 {
     if(testForEndGame()) {
